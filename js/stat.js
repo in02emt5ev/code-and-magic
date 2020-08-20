@@ -1,21 +1,28 @@
 'use strict';
 
-var CLOUD_WIDTH = 420;
-var CLOUD_HEIGHT = 270;
-var CLOUD_X = 100;
-var CLOUD_Y = 10;
-var CLOUD_COLOR = 'rgba(255, 255, 255, 1)';
+var Cloud = {
+  width: 420,
+  height: 270,
+  x: 100,
+  y: 10
+};
 
-var SHADOW_X = CLOUD_X + 10;
-var SHADOW_Y = CLOUD_Y + 10;
-var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
+var Shadow = {
+  x: Cloud.x + 10,
+  y: Cloud.y + 10
+};
 
-var GIST_X = CLOUD_X + 20;
-var GIST_Y = CLOUD_Y + 85;
+var Gist = {
+  x: Cloud.x + 20,
+  y: Cloud.y + 85
+};
 
-var COLUMN_WIDTH = 40;
-var COLUMN_MAX_HEIGHT = 150;
-var COLUMN_GAP = 50;
+var Column = {
+  width: 40,
+  maxHeight: 150,
+  gap: 50
+};
+
 
 var getMaxValue = function (arr) {
   var max = arr[0];
@@ -36,21 +43,21 @@ var renderText = function (ctx, text, x, y) {
 };
 
 var drawCloud = function (ctx) {
-  ctx.fillStyle = SHADOW_COLOR;
-  ctx.fillRect(SHADOW_X, SHADOW_Y, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+  ctx.fillRect(Shadow.x, Shadow.y, Cloud.width, Cloud.height);
 
-  ctx.fillStyle = CLOUD_COLOR;
-  ctx.fillRect(CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT);
+  ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+  ctx.fillRect(Cloud.x, Cloud.y, Cloud.width, Cloud.height);
 
-  renderText(ctx, 'Ура вы победили!', CLOUD_X + 20, CLOUD_Y + 30);
-  renderText(ctx, 'Список результатов:', CLOUD_X + 20, CLOUD_Y + 50);
+  renderText(ctx, 'Ура вы победили!', Cloud.x + 20, Cloud.y + 30);
+  renderText(ctx, 'Список результатов:', Cloud.x + 20, Cloud.y + 50);
 };
 
 var renderGistColumn = function (ctx, x, y, height, name, time, color) {
   renderText(ctx, Math.floor(time), x, y - 10);
 
   ctx.fillStyle = color;
-  ctx.fillRect(x, y, 40, height);
+  ctx.fillRect(x, y, Column.width, height);
 
   renderText(ctx, name, x, y + height + 20);
 };
@@ -60,9 +67,9 @@ var renderGist = function (ctx, names, times) {
 
   for (var i = 0; i < names.length; i++) {
     var columnColor = (names[i] === 'Вы') ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255, 1)';
-    var columnHeight = Math.floor(times[i]) * COLUMN_MAX_HEIGHT / Math.floor(maxTime);
-    var columnX = GIST_X + i * (COLUMN_GAP + COLUMN_WIDTH);
-    var columnY = GIST_Y + (COLUMN_MAX_HEIGHT - columnHeight);
+    var columnHeight = Math.floor(times[i]) * Column.maxHeight / Math.floor(maxTime);
+    var columnX = Gist.x + i * (Column.gap + Column.width);
+    var columnY = Gist.y + (Column.maxHeight - columnHeight);
 
     renderGistColumn(ctx, columnX, columnY, columnHeight, names[i], times[i], columnColor);
   }
