@@ -47,7 +47,7 @@ var getRandomInt = function (min, max) {
   return Math.floor(randomInt);
 };
 
-var createSimilarWizard = function () {
+var createWizardData = function () {
   return {
     name: wizardNames[getRandomInt(0, wizardNames.length)] +
     ' ' +
@@ -58,10 +58,10 @@ var createSimilarWizard = function () {
 };
 
 var WIZARDS_COUNT = 4;
-var similarWizards = [];
+var similarWizardsData = [];
 
 for (var i = 0; i < WIZARDS_COUNT; i++) {
-  similarWizards.push(createSimilarWizard());
+  similarWizardsData.push(createWizardData());
 }
 
 var wizardTemplate = document
@@ -81,11 +81,11 @@ var createWizardElement = function (wizardData) {
   return wizardElement;
 };
 
-var wizards = similarWizards.map(createWizardElement);
+var similarWizardsElements = similarWizardsData.map(createWizardElement);
 var wizardsContainer = document.createDocumentFragment();
 
-for (var j = 0; j < wizards.length; j++) {
-  wizardsContainer.appendChild(wizards[j]);
+for (var j = 0; j < similarWizardsElements.length; j++) {
+  wizardsContainer.appendChild(similarWizardsElements[j]);
 }
 
 var setupSimilar = document.querySelector('.setup-similar');
