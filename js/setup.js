@@ -42,3 +42,7 @@ var wizardEyesColors = [
   'green'
 ];
 
+var getRandomInt = function (min, max) {
+  var randomInt = min + Math.random() * (max - min);
+  return Math.floor(randomInt);
+};
