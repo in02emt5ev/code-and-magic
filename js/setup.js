@@ -56,3 +56,10 @@ var createSimilarWizard = function () {
     eyesColors: wizardEyesColors[getRandomInt(0, wizardEyesColors.length)]
   };
 };
+
+var WIZARDS_COUNT = 4;
+var similarWizards = [];
+
+for (var i = 0; i < WIZARDS_COUNT; i++) {
+  similarWizards.push(createSimilarWizard());
+}
