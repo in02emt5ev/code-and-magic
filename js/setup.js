@@ -63,3 +63,33 @@ var similarWizards = [];
 for (var i = 0; i < WIZARDS_COUNT; i++) {
   similarWizards.push(createSimilarWizard());
 }
+
+var wizardTemplate = document
+  .querySelector('#similar-wizard-template')
+  .content.querySelector('.setup-similar-item');
+
+var createWizardElement = function (wizardData) {
+  var wizardElement = wizardTemplate.cloneNode(true);
+  var wizardElementName = wizardElement.querySelector('.setup-similar-label');
+  var wizardElementCoat = wizardElement.querySelector('.wizard-coat');
+  var wizardElementEyes = wizardElement.querySelector('.wizard-eyes');
+
+  wizardElementName.textContent = wizardData.name;
+  wizardElementCoat.style.fill = wizardData.coatColor;
+  wizardElementEyes.style.fill = wizardData.eyesColors;
+
+  return wizardElement;
+};
+
+var wizards = similarWizards.map(createWizardElement);
+var wizardsContainer = document.createDocumentFragment();
+
+for (var j = 0; j < wizards.length; j++) {
+  wizardsContainer.appendChild(wizards[j]);
+}
+
+var setupSimilar = document.querySelector('.setup-similar');
+var setupSimilarList = document.querySelector('.setup-similar-list');
+
+setupSimilar.classList.remove('hidden');
+setupSimilarList.appendChild(wizardsContainer);
