@@ -46,3 +46,13 @@ var getRandomInt = function (min, max) {
   var randomInt = min + Math.random() * (max - min);
   return Math.floor(randomInt);
 };
+
+var createSimilarWizard = function () {
+  return {
+    name: wizardNames[getRandomInt(0, wizardNames.length)] +
+    ' ' +
+    wizardSurnames[getRandomInt(0, wizardSurnames.length)],
+    coatColor: wizardCoatColors[getRandomInt(0, wizardCoatColors.length)],
+    eyesColors: wizardEyesColors[getRandomInt(0, wizardEyesColors.length)]
+  };
+};
