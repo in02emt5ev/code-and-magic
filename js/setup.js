@@ -99,6 +99,7 @@ var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupOpenIcon = setupOpen.querySelector('.setup-open-icon');
 var setupClose = setup.querySelector('.setup-close');
+var setupUserName = setup.querySelector('.setup-user-name');
 
 var openSetup = function () {
   setup.classList.remove('hidden');
@@ -134,11 +135,22 @@ var setupCloseClickHandler = function () {
   setupClose.removeEventListener('keydown', setupCloseEnterPressHandler);
 };
 
+var setupUserNameFocusHandler = function () {
+  document.removeEventListener('keydown', setupEscPressHandler);
+};
+
+var setupUserNameBlurHandler = function () {
+  document.addEventListener('keydown', setupEscPressHandler);
+};
+
 var setupOpenClickHandler = function () {
   openSetup();
 
   setupClose.addEventListener('click', setupCloseClickHandler);
   setupClose.addEventListener('keydown', setupCloseEnterPressHandler);
+  setupUserName.addEventListener('focus', setupUserNameFocusHandler);
+  setupUserName.addEventListener('blur', setupUserNameBlurHandler);
+
 };
 
 var setupOpenIconEnterPressHandler = function (evt) {
@@ -147,6 +159,8 @@ var setupOpenIconEnterPressHandler = function (evt) {
 
     setupClose.addEventListener('click', setupCloseClickHandler);
     setupClose.addEventListener('keydown', setupCloseEnterPressHandler);
+    setupUserName.addEventListener('focus', setupUserNameFocusHandler);
+    setupUserName.addEventListener('blur', setupUserNameBlurHandler);
   }
 };
 
