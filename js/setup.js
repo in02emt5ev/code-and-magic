@@ -37,6 +37,13 @@ var wizardEyesColors = [
   'yellow',
   'green'
 ];
+var wizardFireballColors = [
+  '#ee4830',
+  '#30a8ee',
+  '#5ce6c0',
+  '#e848d5',
+  '#e6e848'
+];
 
 var getRandomInt = function (min, max) {
   var randomInt = min + Math.random() * (max - min);
@@ -166,3 +173,23 @@ var setupOpenIconEnterPressHandler = function (evt) {
 
 setupOpen.addEventListener('click', setupOpenClickHandler);
 setupOpenIcon.addEventListener('keydown', setupOpenIconEnterPressHandler);
+
+// Кастомизация персонажа;
+
+var setupWizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var setupWizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var setupWizardFireball = document.querySelector('.setup-fireball-wrap');
+
+var setupWizardCoatClickHandler = function () {
+  setupWizardCoat.style.fill = wizardCoatColors[getRandomInt(0, wizardCoatColors.length)];
+};
+var setupWizardEyesClickHandler = function () {
+  setupWizardEyes.style.fill = wizardEyesColors[getRandomInt(0, wizardEyesColors.length)];
+};
+var setupWizardFireballClickHandler = function () {
+  setupWizardFireball.style.background = wizardFireballColors[getRandomInt(0, wizardFireballColors.length)];
+};
+
+setupWizardCoat.addEventListener('click', setupWizardCoatClickHandler);
+setupWizardEyes.addEventListener('click', setupWizardEyesClickHandler);
+setupWizardFireball.addEventListener('click', setupWizardFireballClickHandler);
