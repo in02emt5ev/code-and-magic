@@ -1,9 +1,5 @@
 'use strict';
 
-var setup = document.querySelector('.setup');
-
-setup.classList.remove('hidden');
-
 // Создание похожих волшебников;
 
 var wizardNames = [
@@ -93,3 +89,66 @@ var setupSimilarList = document.querySelector('.setup-similar-list');
 
 setupSimilar.classList.remove('hidden');
 setupSimilarList.appendChild(wizardsContainer);
+
+// Открытие/закрытие окна настройки персонажа;
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupOpenIcon = setupOpen.querySelector('.setup-open-icon');
+var setupClose = setup.querySelector('.setup-close');
+
+var openSetup = function () {
+  setup.classList.remove('hidden');
+
+  document.addEventListener('keydown', setupEscPressHandler);
+};
+
+var closeSetup = function () {
+  setup.classList.add('hidden');
+
+  document.removeEventListener('keydown', setupEscPressHandler);
+};
+
+var setupEscPressHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeSetup();
+  }
+};
+
+var setupCloseEnterPressHandler = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closeSetup();
+
+    setupClose.removeEventListener('click', setupCloseClickHandler);
+    setupClose.removeEventListener('keydown', setupCloseEnterPressHandler);
+  }
+};
+
+var setupCloseClickHandler = function () {
+  closeSetup();
+
+  setupClose.removeEventListener('click', setupCloseClickHandler);
+  setupClose.removeEventListener('keydown', setupCloseEnterPressHandler);
+};
+
+var setupOpenClickHandler = function () {
+  openSetup();
+
+  setupClose.addEventListener('click', setupCloseClickHandler);
+  setupClose.addEventListener('keydown', setupCloseEnterPressHandler);
+};
+
+var setupOpenIconEnterPressHandler = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openSetup();
+
+    setupClose.addEventListener('click', setupCloseClickHandler);
+    setupClose.addEventListener('keydown', setupCloseEnterPressHandler);
+  }
+};
+
+setupOpen.addEventListener('click', setupOpenClickHandler);
+setupOpenIcon.addEventListener('keydown', setupOpenIconEnterPressHandler);
